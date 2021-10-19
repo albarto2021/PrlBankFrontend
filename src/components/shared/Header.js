@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import UserDropDown from "./UserDropDown";
-import Login from "../login/Login"
-import UserMenu from "../user/UserMenu";
-import { useStateValue } from "../../StateProvider";
-import AdminMenu from "../admin/AdminMenu";
-import EmployeeMenu from "../employee/EmployeeMenu"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import UserDropDown from './UserDropDown';
+import Login from '../login/Login';
+import UserMenu from '../user/UserMenu';
+import { useStateValue } from '../../StateProvider';
+import AdminMenu from '../admin/AdminMenu';
+import EmployeeMenu from '../employee/EmployeeMenu';
 
 const Header = () => {
   
@@ -15,6 +15,7 @@ const Header = () => {
   if(userInfo){
     curr = userInfo.userDAO;
   }
+
 
   return (
     <>

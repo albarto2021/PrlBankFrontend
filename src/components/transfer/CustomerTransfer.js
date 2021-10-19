@@ -40,15 +40,15 @@ const CustomerTransferForm = (props) => {
 									option.description
 								}
 								// className={classes.formControl}
-								name="description"
-								getOptionSelected={(option, value) =>
-									option.description === value.description
-								}
+								name="fromAccount"
+								// getOptionSelected={(option, value) =>
+								// 	option.description === value.description
+								// }
 								// style={{ width: 200 }}
 								onChange={(event, value, clear) => {
 									props.setFieldValue(
-										'description',
-										value?.description || ''
+										'fromAccount', value.id
+										//value?.description || ''
 									);
 								}}
 								onOpen={props.setTouched}
@@ -72,16 +72,19 @@ const CustomerTransferForm = (props) => {
 									option.description
 								}
 								// className={classes.formControl}
-								name="description"
+								name="toAccount"
 								getOptionSelected={(option, value) =>
 									option.description === value.description
 								}
 								// style={{ width: 200 }}
 								onChange={(event, value, clear) => {
 									props.setFieldValue(
-										'description',
-										value?.description || ''
+										'toAccount', value.id
+										
+										//value?.description || ''
+				
 									);
+									{console.log(value)}
 								}}
 								onOpen={props.setTouched}
 								renderInput={(params) => (
@@ -150,14 +153,14 @@ const CustomerTransfer = () => {
 			<div className="d-flex justify-content-center flex-column">
 				<Formik
 					initialValues={{
-						from: '',
-						to: '',
+						fromAccount: '',
+						toAccount: '',
 						amount: '',
 						explanation: '',
 					}}
-					validationSchema={Yup.object({
-						from: Yup.string().required('from required'),
-						to: Yup.string().required('to required'),
+					validationSchema={Yup.object().shape({
+						fromAccount: Yup.string().required('from required'),
+						toAccount: Yup.string().required('to required'),
 
 						amount: Yup.number()
 							.positive()
@@ -177,11 +180,13 @@ const CustomerTransfer = () => {
 											position: toast.POSITION.TOP_CENTER,
 										}
 									);
-									const userInfo = res.data;
-									dispatch({
-										type: 'UPDATE',
-										item: userInfo,
-									});
+									// dispatch register, account creation gibi backend'den 
+									// bilgi gerektirmeyen yerlerde kullanilmasi gerekmez.
+									// const userInfo = res.data;
+									// dispatch({
+									// 	type: 'UPDATE',
+									// 	item: userInfo,
+									// });
 
 									actions.setSubmitting(false);
 									actions.resetForm();

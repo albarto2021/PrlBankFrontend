@@ -9,6 +9,7 @@ import { useStateValue } from "../../StateProvider";
 const UserMenu = () => {
   const history = useHistory();
   const [{userInfo}, dispatch] = useStateValue();
+
   console.log(userInfo);
 
   const id1=userInfo.userDAO.userId;

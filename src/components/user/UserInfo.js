@@ -11,6 +11,8 @@ import {Button,LinearProgress} from "@material-ui/core";
 import { useHistory } from "react-router";
 
 
+
+
 // bir form olacak
 // firstname  lastname  email  language
 // useStateValue ve userInfo 
@@ -43,6 +45,7 @@ const UserInfo = () => {
                                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
+
                         const currentUserId = currentUser.userId;
                         service.updateUserInfo(values, currentUserId).then((res) => {
                             if(res.status === 200){
@@ -119,6 +122,19 @@ const UserInfo = () => {
                                             />
                                         </Col>
                                     </Row>
+                                    <Row className="ms-4">
+                                        <Col className="d-flex justify-content-center p-3">
+                                            <Button
+                                            type="submit"
+                                            onClick={props.submitForm}
+                                            disabled={props.isSubmitting}
+                                            variant="contained"
+                                            color="secondary">
+                                            Submit
+                                            </Button>
+                                        </Col> 
+                                        {props.isSubmitting && <LinearProgress/>}
+                                        </Row>
 
                                     <Row className="ms-4">
                                         <Col className="d-flex justify-content-center p-3">

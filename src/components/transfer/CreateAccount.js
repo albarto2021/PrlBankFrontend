@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import service from '../../service/BankService';
 import { ToastContainer } from 'react-toastify';
-// import { useStateValue } from '../../../StateProvider';
+import { useStateValue } from '../../StateProvider';
 // import { useHistory } from 'react-router';
 
 // import Divider from '@material-ui/core/Divider';
@@ -68,7 +68,7 @@ const CreateAccountForm = (props) => (
 						<Field
 							className="col-8"
 							component={TextField}
-							name="accountType"
+							name="accountType"  // ENUM
 							type="text"
 							label="Account Type"
 						/>
@@ -77,7 +77,7 @@ const CreateAccountForm = (props) => (
 						<Field
 							className="col-8"
 							component={TextField}
-							name="accountStatusType"
+							name="accountStatusType"  // ENUM
 							type="text"
 							label="Account Status Type"
 						/>
@@ -134,7 +134,7 @@ const CreateAccountForm = (props) => (
 );
 
 const CreateAccount = () => {
-	// const [{ userInfo }, dispatch] = useStateValue();
+	const [{ userInfo }, dispatch] = useStateValue();
 	// const history = useHistory();
 
 	return (
@@ -155,7 +155,7 @@ const CreateAccount = () => {
 					validationSchema={AccountSchema}
 					onSubmit={(values, actions) => {
 						service
-							.createAccount(values)
+							.createAccount(values, userInfo.userDAO.userId)
 							.then((res) => {
 								if (res.status === 200) {
 									// const userInfo = res.data;

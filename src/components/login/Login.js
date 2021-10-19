@@ -3,7 +3,7 @@ import { Field, Formik,Form } from "formik";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
-
+import MaskedInput from 'react-text-mask';
 import { Container,Row,Col } from "react-bootstrap";
 import { TextField } from "formik-material-ui";
 import {Button,LinearProgress} from "@material-ui/core";
@@ -13,6 +13,19 @@ import service from "../../service/BankService"
 import { useHistory } from "react-router";
 
 //let history = useHistory();
+const ssnNumberMask = [
+  /[1-9]/,
+  /\d/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/
+];
 
 const LoginForm=(props)=>{
   const history = useHistory();
@@ -24,12 +37,26 @@ const LoginForm=(props)=>{
       <Row className="justify-content-center">  
         <Col xs={6} md={4} className="text-center p-3">
           <label htmlFor="ssn">SSN:</label>
-          <Field 
+          {/* <Field 
           className="ms-4"
           component={TextField}
           name="ssn"
           type="text"
+          /> */}
+          <Field
+            name="ssn"
+            label="SSN"
+            render={({ field }) => (
+            <MaskedInput
+            {...field}
+            mask={ssnNumberMask}
+            id="ssn"
+            placeholder="000-00-0000"
+            ype="text"
+                                        
           />
+                                        )}
+                                    />
         </Col>
 
         <Col xs={6} md={4} className="text-center p-3">
@@ -43,6 +70,17 @@ const LoginForm=(props)=>{
         </Col>
       </Row>
       <Row className="ms-4">
+      <Col className="d-flex justify-content-center p-3">
+          <Button
+          type="submit"
+          onClick={()=> history.push("/")}
+          disabled={props.isSubmitting}
+          variant="contained"
+          color="secondary">
+          Cancel
+          </Button>
+      </Col> 
+      
        <Col className="d-flex justify-content-center p-3">
          <Button
          type="submit"
@@ -54,16 +92,7 @@ const LoginForm=(props)=>{
          </Button>
        </Col> 
        
-      <Col className="d-flex justify-content-center p-3">
-          <Button
-          type="submit"
-          onClick={()=> history.push("/")}
-          disabled={props.isSubmitting}
-          variant="contained"
-          color="secondary">
-          Cancel
-          </Button>
-      </Col> 
+      
         
        {props.isSubmitting && <LinearProgress/>}
       </Row>

@@ -15,7 +15,7 @@ import { useState } from 'react';
 toast.configure();
 const eighteenyears=new Date();
 eighteenyears.setFullYear(new Date().getFullYear()-18);
-const phoneNumberMask = [
+const ssnNumberMask = [
     /[1-9]/,
     /\d/,
     /\d/,
@@ -96,7 +96,7 @@ const RegistrationForm=(props) => {
                                     render={({ field }) => (
                                         <MaskedInput
                                         {...field}
-                                        mask={phoneNumberMask}
+                                        mask={ssnNumberMask}
                                         id="ssn"
                                         placeholder="000-00-0000"
                                         type="text"

@@ -14,7 +14,7 @@ const Users = () => {
         })
 
         return () => {
-            setUsers([]);
+            setUsers();
         }
     }, [])
 

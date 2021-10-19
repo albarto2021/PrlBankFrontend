@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 import { Redirect, useHistory } from "react-router";
 
 
+
+
 let rows = [];
 const columns = [{id: 1, label: "First Name", winWidth: 200},
                  {id: 2, label: "Last Name", winWidth: 200},
@@ -24,11 +26,17 @@ const columns = [{id: 1, label: "First Name", winWidth: 200},
                  {id: 4, label: "Edit", winWidth: 200},
                  {id: 5, label: "Delete", winWidth: 200}]
 
-              
+
+
+                 
 const UsersDetails = (props) => {
     const [{ userInfo }] = useStateValue();
     rows = props.users;
     const history = useHistory();
+    const [chosenUser, setChosenUser] = useState('');
+    // const deleteUser=()=>{
+    //     history.push("/admin/allusers")
+    // };
 
     const handleEdit = (userId) => {
         history.push("/admin/singleUserDetails/" + userId)
@@ -40,7 +48,10 @@ const UsersDetails = (props) => {
             toast.success("User Successfuly deleted", {
               position: toast.POSITION.TOP_CENTER,
             });
-            //history.push("/admin/allusers")
+        // localStorage.setItem("refresh",localStorage.getItem("refresh")+1);
+          history.push("/admin/deletedUser")
+            // history.push("/admin/allusers")
+            // deleteUser();
         
           } else {
             toast.error("User could not be deleted", {
@@ -96,6 +107,8 @@ const UsersDetails = (props) => {
             </TableContainer>
             
         </Container>
+
+
 
     )
 }
