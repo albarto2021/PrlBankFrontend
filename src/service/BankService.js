@@ -37,6 +37,10 @@ class BankService {
 		);
 	}
 
+	getSingleUser(userId){
+		return axiosInstance.get(BASE_URL + '/auth/admin/singleUserDetails/' + userId);
+	}
+
 	deleteUser(userId) {
 		return axiosInstance.delete(
 			BASE_URL + '/auth/admin/delete/' + userId

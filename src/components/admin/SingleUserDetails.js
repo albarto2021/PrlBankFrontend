@@ -9,7 +9,8 @@ import { TextField } from "formik-material-ui";
 import {Button,LinearProgress} from "@material-ui/core";
 
 import { useHistory } from "react-router";
-import { TvRounded } from '@material-ui/icons'
+import {idToPass} from "./UsersDetails";
+import {currentUser} from "./UsersDetails"
 
 
 
@@ -22,26 +23,35 @@ const validationSchema = Yup.object().shape({
     // all accounts
 
 })
-
+//const id;
 
 const SingleUserDetails = () => {
 
-    const [allUsers, setAllUsers] = useState([]);
-    useEffect(() => {
-        service.getAllUsers().then((res)=>{
-            setAllUsers(res.data.userDAOList);
-        })
+    // const [singleUser, setSingleUser] = useState([]);
+    // useEffect(() => {
+    //     service.getSingleUser(idToPass).then((res)=>{
+    //         setSingleUser(res.data.userDAO);
+    //     })
 
-        return () => {
-            setAllUsers();
-        }
-    }, [])
+    //     return () => {
+    //         setSingleUser();
+    //     }
+    // }, [])
 
-    const [{userInfo}, dispatch] = useStateValue();
+
+
+    //const [{userInfo}, dispatch] = useStateValue();
+    //console.log(singleUser); // []
     //console.log(userInfo); // null
-    const currentUser = allUsers.filter(t=>('http://localhost:3000/admin/singleUserDetails/'+t.userId)==window.location.href); // ??????????
-    console.log(currentUser);
-    console.log(allUsers)
+    //const currentUser = allUsers.filter(t=>('http://localhost:3000/admin/singleUserDetails/'+t.userId)==window.location.href); // ??????????
+    //const currentUser = allUsers.find(t=>t['userId'] == idToPass);
+    // const currentUser = singleUser;
+    // console.log(idToPass)
+    // console.log(currentUser)
+    // console.log(singleUser.ssn);
+    // console.log(userToPass);
+    
+    
     const history = useHistory();
     return (
         <Container>
@@ -51,11 +61,11 @@ const SingleUserDetails = () => {
                     initialValues={{
                                     ssn: currentUser.ssn,
                                     firstName: currentUser.firstName,
-                                    lastName: currentUser.lastName,
+                                    lastName: 'deneme',
                                     dob: currentUser.dob,
                                     email: currentUser.email,
                                     username: currentUser.username,
-                                    role: currentUser.userRoles,
+                                    //role: currentUser.userRoles,
                                     accounts: '',
                                     // accountDAOs listesi gelecek
 
@@ -71,10 +81,10 @@ const SingleUserDetails = () => {
                                     position: toast.POSITION.TOP_CENTER,
                                 });
                                 const userInfo = res.data;
-                                dispatch({
-                                    type: "UPDATE",
-                                    item: userInfo
-                                });
+                                // dispatch({
+                                //     type: "UPDATE",
+                                //     item: userInfo
+                                // });
                                 actions.resetForm();
                                 actions.setSubmitting(false);
                                 history.push("/")
@@ -123,7 +133,7 @@ const SingleUserDetails = () => {
                                                 component={TextField}
                                                 name="firstName"
                                                 type="text"
-                                                placeholder="Enter first name"
+                                                //placeholder="Enter first name"
                                             />
                                         </Col>
                                     </Row>
@@ -136,7 +146,7 @@ const SingleUserDetails = () => {
                                                 component={TextField}
                                                 name="lastName"
                                                 type="text"
-                                                placeholder="Enter last name"
+                                                //placeholder="Enter last name"
                                             />
                                         </Col>
                                     </Row>
@@ -149,7 +159,7 @@ const SingleUserDetails = () => {
                                                 component={TextField}
                                                 name="dob"
                                                 type="date"
-                                                placeholder="Enter date of birth"
+                                                //placeholder="Enter date of birth"
                                             />
                                         </Col>
                                     </Row>

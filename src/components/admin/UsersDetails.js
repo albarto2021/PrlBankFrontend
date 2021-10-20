@@ -27,18 +27,20 @@ const columns = [{id: 1, label: "First Name", winWidth: 200},
                  {id: 5, label: "Delete", winWidth: 200}]
 
 
-
+export let idToPass;
+export let currentUser;
                  
 const UsersDetails = (props) => {
     const [{ userInfo }] = useStateValue();
     rows = props.users;
     const history = useHistory();
-    const [chosenUser, setChosenUser] = useState('');
+    //const [chosenUser, setChosenUser] = useState('');
     // const deleteUser=()=>{
     //     history.push("/admin/allusers")
     // };
 
     const handleEdit = (userId) => {
+        //idToPass = userId;
         history.push("/admin/singleUserDetails/" + userId)
     }
 
@@ -77,7 +79,10 @@ const UsersDetails = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row)=>(
+                    {rows.map((row)=> {
+                        idToPass = row.userId;
+                        currentUser = row;
+                        return (
                         <TableRow key={row.userId}>
                             <TableCell>{row.firstName}</TableCell>
                             <TableCell>{row.lastName}</TableCell>
@@ -93,13 +98,11 @@ const UsersDetails = (props) => {
 
                             <TableCell>
                             <Button
-                                onClick={() => handleDelete(row.userId)}
+                                onClick={() => { handleDelete(row.userId)} }
                             >Delete</Button>
                             </TableCell>
-                            
-                            
-                        </TableRow>
-                    )
+                        </TableRow>)
+                    }
                         
                     )}
                 </TableBody>

@@ -25,6 +25,7 @@ const Users = () => {
             <UsersDetails users={users}>
 
             </UsersDetails>
+            {/* <SingleUserDetails/> */}
         </div>
     )
 }
