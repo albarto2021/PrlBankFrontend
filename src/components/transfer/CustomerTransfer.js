@@ -144,6 +144,7 @@ const CustomerTransfer = () => {
 	console.log(userInfo);
 	if (userInfo?.userDAO?.accounts) {
 		accountDescription = userInfo.userDAO.accounts;
+		console.log(accountDescription);
 	}
 
 	return (

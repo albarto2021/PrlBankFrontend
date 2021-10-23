@@ -1,21 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import UserDropDown from './UserDropDown';
-import Login from '../login/Login';
-import UserMenu from '../user/UserMenu';
-import { useStateValue } from '../../StateProvider';
-import AdminMenu from '../admin/AdminMenu';
-import EmployeeMenu from '../employee/EmployeeMenu';
+import React from "react";
+import { Link } from "react-router-dom";
+import UserDropDown from "./UserDropDown";
+import Login from "../login/Login";
+import UserMenu from "../user/UserMenu";
+import { useStateValue } from "../../StateProvider";
+import AdminMenu from "../admin/AdminMenu";
+import EmployeeMenu from "../employee/EmployeeMenu";
 
 const Header = () => {
-  
-  const [{userInfo}, dispatch] = useStateValue();
+  const [{ userInfo }, dispatch] = useStateValue();
 
   let curr;
-  if(userInfo){
+  if (userInfo) {
     curr = userInfo.userDAO;
   }
-
 
   return (
     <>
@@ -52,14 +50,12 @@ const Header = () => {
               <span id="account" className="btn btn-round">
                 {/*                   <UserDropDown/>
                  */}
-                 {userInfo && curr.isAdmin && <AdminMenu/>}
-                 {userInfo && curr.isEmployee && <EmployeeMenu/>}
-                 {userInfo && !curr.isAdmin && !curr.isEmployee && <UserMenu />}
+                {userInfo && curr.isAdmin && <AdminMenu />}
+                {userInfo && curr.isEmployee && <EmployeeMenu />}
+                {userInfo && !curr.isAdmin && !curr.isEmployee && <UserMenu />}
                 <Link to="/register">Register</Link> &nbsp; | &nbsp;
                 <span className="header__lineOne">Hello </span>
                 <Link to="/login">Signin</Link>
-              
-                
               </span>
             </div>
           </div>

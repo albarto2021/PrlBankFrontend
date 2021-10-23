@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,38 +15,40 @@ import { Button } from "@material-ui/core";
 import service from "../../service/BankService";
 import { toast } from "react-toastify";
 import { Redirect, useHistory } from "react-router";
+import allAccountsToPass from "../admin/SingleUserDetails";
 
 let rows = [];
 const columns = [
-  { id: 1, label: "First Name", winWidth: 200 },
-  { id: 2, label: "Last Name", winWidth: 200 },
-  { id: 3, label: "Role", winWidth: 200 },
-  { id: 4, label: "Edit", winWidth: 200 },
-  { id: 5, label: "Delete", winWidth: 200 },
+  { id: 1, label: "Account id", winWidth: 200 },
+  { id: 2, label: "Description", winWidth: 200 },
+  { id: 3, label: "Balance", winWidth: 200 },
+  { id: 4, label: "Account type", winWidth: 200 },
+  { id: 5, label: "Account status", winWidth: 200 },
+  { id: 6, label: "Creation date", winWidth: 200 },
+  { id: 7, label: "Closing date", winWidth: 200 },
+  { id: 8, label: "Assigner", winWidth: 200 },
+  { id: 9, label: "Edit", winWidth: 200 },
+  { id: 10, label: "Delete", winWidth: 200 },
 ];
 
 ///export let idToPass;
-export let currentUser;
+export let currentAccount;
 
-const UsersDetails = (props) => {
-  const [{ userInfo }] = useStateValue();
-  rows = props.users;
+const DisplayAccounts = (props) => {
+  rows = props.allAccounts;
+  console.log(rows);
   const history = useHistory();
-  //const [chosenUser, setChosenUser] = useState('');
-  // const deleteUser=()=>{
-  //     history.push("/admin/allusers")
-  // };
 
-  const handleEdit = (userId, row) => {
+  const handleEdit = (accountId, row) => {
     //idToPass = userId;
-    currentUser = row;
-    history.push("/admin/edituser");
+    currentAccount = row;
+    history.push("/editaccounts");
   };
 
-  const handleDelete = (userId) => {
-    service.deleteUser(userId).then((res) => {
+  const handleDelete = (accountId) => {
+    service.deleteAccount(accountId).then((res) => {
       if (res.status == 200) {
-        toast.success("User Successfuly deleted", {
+        toast.success("Account Successfuly deleted", {
           position: toast.POSITION.TOP_CENTER,
         });
         // localStorage.setItem("refresh",localStorage.getItem("refresh")+1);
@@ -78,19 +80,23 @@ const UsersDetails = (props) => {
         <TableBody>
           {rows.map((row) => {
             //idToPass = row.userId;
-            //currentUser = row;
+            //currentAccount = row;
+            // AccountId, Descr, Balance, Acc Type, Status, Create-Close Date,Assigner
             return (
-              <TableRow key={row.userId}>
-                <TableCell>{row.firstName}</TableCell>
-                <TableCell>{row.lastName}</TableCell>
-                <TableCell>
-                  {row.isAdmin ? "Admin" : row.isEmployee ? "Employee" : "User"}
-                </TableCell>
+              <TableRow key={row.id}>
+                <TableCell>{row.id}</TableCell>
+                <TableCell>{row.description}</TableCell>
+                <TableCell>{row.accountBalance}</TableCell>
+                <TableCell>{row.accountType}</TableCell>
+                <TableCell>{row.accountStatusType}</TableCell>
+                <TableCell>{row.createDate}</TableCell>
+                <TableCell>{row.closedDate}</TableCell>
+                <TableCell>{row.employee}</TableCell>
 
                 <TableCell>
                   <Button
                     onClick={() => {
-                      handleEdit(row.userId, row);
+                      handleEdit(row.id, row);
                     }}
                   >
                     Edit
@@ -100,7 +106,7 @@ const UsersDetails = (props) => {
                 <TableCell>
                   <Button
                     onClick={() => {
-                      handleDelete(row.userId);
+                      handleDelete(row.id);
                     }}
                   >
                     Delete
@@ -115,4 +121,4 @@ const UsersDetails = (props) => {
   );
 };
 
-export default UsersDetails;
+export default DisplayAccounts;
