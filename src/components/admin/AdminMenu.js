@@ -32,7 +32,7 @@ const AdminMenu = () => {
   //   setAnchorEl(null);
   // };
   const handleCreateAccount = () => {
-    history.push("/createAccount/" + id1);
+    history.push("/createAccount");
     setAnchorEl(null);
   };
   const handleCustomerTransfer = () => {

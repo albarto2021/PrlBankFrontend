@@ -13,8 +13,13 @@ import { useHistory } from "react-router";
 
 import { currentAccount } from "./DisplayAccounts";
 
-const allAccountStatusTypes = ["ACTIVE", "CLOSED", "SUSPENDED"];
-const allAccountTypes = ["SAVING", "CHECKING", "CREDIT_CARD", "INVESTING"];
+export const allAccountStatusTypes = ["ACTIVE", "CLOSED", "SUSPENDED"];
+export const allAccountTypes = [
+  "SAVING",
+  "CHECKING",
+  "CREDIT_CARD",
+  "INVESTING",
+];
 
 const today = new Date();
 today.setHours(new Date().getHours() - 24);

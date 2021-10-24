@@ -61,11 +61,8 @@ class BankService {
       accountInfo
     );
   }
-  createAccount(accountInfo, userId) {
-    return axiosInstance.post(
-      BASE_URL + "/auth/createAccount/" + userId,
-      accountInfo
-    );
+  createAccount(accountInfo) {
+    return axiosInstance.post(BASE_URL + "/auth/createAccount", accountInfo);
   }
 }
 
