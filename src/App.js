@@ -19,6 +19,8 @@ import SingleUserDetails from "./components/admin/SingleUserDetails";
 import Accounts from "./components/admin/Accounts";
 import DisplayAllAccounts from "./components/employee/DisplayAllAccounts";
 import EditAccount from "./components/employee/EditAccount";
+import Logout from "./components/logout/Logout";
+import Deposit from "./components/transaction/Deposit";
 
 const App = () => {
   return (
@@ -31,6 +33,7 @@ const App = () => {
         <Route path="/admin/deletedUser" component={DeletedUser} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/logout" component={Logout} />
         <Route path="/about" component={AboutUsPage} />
         <Route path="/admin/singleUserDetails" component={SingleUserDetails} />
         <Route path="/admin/edituser" component={Accounts} />
@@ -42,6 +45,7 @@ const App = () => {
         <Route path="/transfer" component={CustomerTransferPage} />
         <Route path="/createAccount" component={CreateAccountPage} />
         <Route path="/moneyTransfer" component={CustomerTransferPage} />
+        <Route path="/deposit" component={Deposit} />
         <Route path="/" component={HomePage} />
       </Switch>
       <Footer />

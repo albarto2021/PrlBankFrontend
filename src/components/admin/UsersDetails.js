@@ -15,8 +15,9 @@ import { Button } from "@material-ui/core";
 import service from "../../service/BankService";
 import { toast } from "react-toastify";
 import { Redirect, useHistory } from "react-router";
+import SearchBar, { resultSet } from "../shared/SearchBar";
 
-let rows = [];
+export let rows; // export added
 const columns = [
   { id: 1, label: "First Name", winWidth: 200 },
   { id: 2, label: "Last Name", winWidth: 200 },
@@ -30,7 +31,9 @@ export let currentUser;
 
 const UsersDetails = (props) => {
   const [{ userInfo }] = useStateValue();
+  //rows = props.users;
   rows = props.users;
+  const [searchItem, setSearchItem] = useState("");
   const history = useHistory();
   //const [chosenUser, setChosenUser] = useState('');
   // const deleteUser=()=>{
@@ -62,56 +65,84 @@ const UsersDetails = (props) => {
   };
 
   return (
-    <Container>
-      <TableContainer>
-        <TableHead>
-          <TableRow>
-            {columns.map(({ id, label, minWidth }) => {
-              return (
-                <TableCell key={id} style={{ minWidth: minWidth }}>
-                  {label}
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => {
-            //idToPass = row.userId;
-            //currentUser = row;
-            return (
-              <TableRow key={row.userId}>
-                <TableCell>{row.firstName}</TableCell>
-                <TableCell>{row.lastName}</TableCell>
-                <TableCell>
-                  {row.isAdmin ? "Admin" : row.isEmployee ? "Employee" : "User"}
-                </TableCell>
+    <div >
+     
+      <Container>
+      <input
+        className=" d-flex justify-content-center"
+        type="text"
+        placeholder="Search"
+        onChange={(e) => {
+          setSearchItem(e.target.value);
+        }}
+      />
+        <TableContainer>
+          <TableHead>
+            <TableRow>
+              {columns.map(({ id, label, minWidth }) => {
+                return (
+                  <TableCell key={id} style={{ minWidth: minWidth }}>
+                    {label}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .filter((val) => {
+                {
+                  /* if (searchItem == "") {
+                  return val;
+                } else  */
+                }
+                if (
+                  val.firstName
+                    .toLowerCase()
+                    .includes(searchItem.toLocaleLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((row) => {
+                return (
+                  <TableRow key={row.userId}>
+                    <TableCell>{row.firstName}</TableCell>
+                    <TableCell>{row.lastName}</TableCell>
+                    <TableCell>
+                      {row.isAdmin
+                        ? "Admin"
+                        : row.isEmployee
+                        ? "Employee"
+                        : "User"}
+                    </TableCell>
 
-                <TableCell>
-                  <Button
-                    onClick={() => {
-                      handleEdit(row.userId, row);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          handleEdit(row.userId, row);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </TableCell>
 
-                <TableCell>
-                  <Button
-                    onClick={() => {
-                      handleDelete(row.userId);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </TableContainer>
-    </Container>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          handleDelete(row.userId);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </TableContainer>
+      </Container>
+    </div>
   );
 };
 

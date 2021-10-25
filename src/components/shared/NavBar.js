@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <>
       {/* <!-- navbar start --> */}
-      <div className="navbar-area bg-one">
+      <div style={{zIndex:'0', position:'relative'}} className="navbar-area bg-one">
         <nav className="navbar navbar-area navbar-expand-lg">
           <div className="container nav-container">
             <div className="responsive-mobile-menu">

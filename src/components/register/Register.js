@@ -72,17 +72,18 @@ const validationSchema = Yup.object().shape({
 
 const RegistrationForm = (props) => {
   const [password, setPassword] = useState("");
-  const [control, setControl] = useState(["ssn"]);
+  const [control, setControl] = useState([""]);
   const [a, setA] = useState(0);
   const handlea = (e) => {
-    //   console.log(e);
+    let inp=e.target.name;
+    if(!control.includes(inp)) {
     setA(a + 1);
-    //   setControl((control) => [...control, e.target.name]);
-    console.log(e.target.name);
-    //   console.log(control);
+    setControl((control) => [...control, inp]);}
+ 
+
   };
 
-  console.log(a);
+  
   return (
     <Container className="d-flex justify-content-center">
       <fieldset>
@@ -272,24 +273,29 @@ const Register = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          service
-            .register(values)
-            .then((res) => {
-              if (res.status === 200) {
-                toast.success("Register Successful", {
+          if (values.ssn.includes("_")) {
+            toast.error("Invalid SSN");
+            actions.setSubmitting(false);
+          } else {
+            service
+              .register(values)
+              .then((res) => {
+                if (res.status === 200) {
+                  toast.success("Register Successful", {
+                    position: toast.POSITION.TOP_CENTER,
+                  });
+                  actions.resetForm();
+                  actions.setSubmitting(false);
+                }
+              })
+              .catch(() => {
+                toast.error("Register Denied", {
                   position: toast.POSITION.TOP_CENTER,
                 });
                 actions.resetForm();
                 actions.setSubmitting(false);
-              }
-            })
-            .catch(() => {
-              toast.error("Register Denied", {
-                position: toast.POSITION.TOP_CENTER,
               });
-              actions.resetForm();
-              actions.setSubmitting(false);
-            });
+          }
         }}
         component={RegistrationForm}
       ></Formik>

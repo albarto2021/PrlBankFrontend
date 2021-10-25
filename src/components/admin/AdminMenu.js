@@ -47,7 +47,7 @@ const AdminMenu = () => {
     setAnchorEl(null);
   };
   return (
-    <div class="mx-auto">
+    <div class="mx-auto" >
       <Button
         aria-controls="user-menu"
         aria-haspopup="true"

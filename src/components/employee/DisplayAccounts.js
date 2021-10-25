@@ -38,6 +38,7 @@ const DisplayAccounts = (props) => {
   rows = props.allAccounts;
   console.log(rows);
   const history = useHistory();
+  const [searchItem, setSearchItem] = useState("");
 
   const handleEdit = (accountId, row) => {
     //idToPass = userId;
@@ -64,60 +65,82 @@ const DisplayAccounts = (props) => {
   };
 
   return (
-    <Container>
-      <TableContainer>
-        <TableHead>
-          <TableRow>
-            {columns.map(({ id, label, minWidth }) => {
-              return (
-                <TableCell key={id} style={{ minWidth: minWidth }}>
-                  {label}
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => {
-            //idToPass = row.userId;
-            //currentAccount = row;
-            // AccountId, Descr, Balance, Acc Type, Status, Create-Close Date,Assigner
-            return (
-              <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.accountBalance}</TableCell>
-                <TableCell>{row.accountType}</TableCell>
-                <TableCell>{row.accountStatusType}</TableCell>
-                <TableCell>{row.createDate}</TableCell>
-                <TableCell>{row.closedDate}</TableCell>
-                <TableCell>{row.employee}</TableCell>
+    <div>
+      
+      <Container>
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={(e) => {
+          setSearchItem(e.target.value);
+        }}
+      />
+        <TableContainer>
+          <TableHead>
+            <TableRow>
+              {columns.map(({ id, label, minWidth }) => {
+                return (
+                  <TableCell key={id} style={{ minWidth: minWidth }}>
+                    {label}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .filter((val) => {
+                {
+                  /* if (searchItem == "") {
+                  return val;
+                } else  */
+                }
+                if (
+                  val.description
+                    .toLowerCase()
+                    .includes(searchItem.toLocaleLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((row) => {
+                return (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.description}</TableCell>
+                    <TableCell>{row.accountBalance}</TableCell>
+                    <TableCell>{row.accountType}</TableCell>
+                    <TableCell>{row.accountStatusType}</TableCell>
+                    <TableCell>{row.createDate}</TableCell>
+                    <TableCell>{row.closedDate}</TableCell>
+                    <TableCell>{row.employee}</TableCell>
 
-                <TableCell>
-                  <Button
-                    onClick={() => {
-                      handleEdit(row.id, row);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          handleEdit(row.id, row);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </TableCell>
 
-                <TableCell>
-                  <Button
-                    onClick={() => {
-                      handleDelete(row.id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </TableContainer>
-    </Container>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          handleDelete(row.id);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </TableContainer>
+      </Container>
+    </div>
   );
 };
 

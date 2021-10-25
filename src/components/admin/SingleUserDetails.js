@@ -20,6 +20,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please provide valid email address")
     .required("Please provide the email address"),
+  //accounts: Yup.number().required("Provide"),
   // role
   // all accounts
 });
@@ -244,7 +245,7 @@ const SingleUserDetails = (props) => {
                   </Row>
 
                   <Row className="ms-4">
-                  <Col className="d-flex justify-content-center p-3">
+                    <Col className="d-flex justify-content-center p-3">
                       <Button
                         // type="submit"
                         onClick={handleBack}
@@ -266,8 +267,6 @@ const SingleUserDetails = (props) => {
                         Submit
                       </Button>
                     </Col>
-
-                    
 
                     {props.isSubmitting && <LinearProgress />}
                   </Row>

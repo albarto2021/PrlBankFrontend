@@ -5,34 +5,52 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
 import { useStateValue } from "../../StateProvider";
+import { toast } from "react-toastify";
+
+toast.configure();
 
 const UserMenu = () => {
   const history = useHistory();
-  const [{userInfo}, dispatch] = useStateValue();
+  const [{ userInfo }, dispatch] = useStateValue();
 
   console.log(userInfo);
 
-  const id1=userInfo.userDAO.userId;
+  const id1 = userInfo.userDAO.userId;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleOnClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-//   const showDashboard = () => {
-//     history.push("/user");
-//     setAnchorEl(null);
-//   };
+  //   const showDashboard = () => {
+  //     history.push("/user");
+  //     setAnchorEl(null);
+  //   };
 
   const handleUserInfoUpdate = () => {
-    history.push("/updateUserInfo/"+id1);
+    history.push("/updateUserInfo/" + id1);
     setAnchorEl(null);
   };
   const handleUpdatePassword = () => {
-    history.push("/updatePassword/"+id1);
+    history.push("/updatePassword/" + id1);
     setAnchorEl(null);
   };
-  
+
+  const handleDeposit = () => {
+    if (userInfo.userDAO.accounts.length == 0) {
+      toast.warning("You need to have an account first");
+      setAnchorEl(null);
+    } else {
+      history.push("/deposit");
+      setAnchorEl(null);
+    }
+  };
+
+  const handleWithdraw = () => {
+    history.push("/updatePassword/" + id1);
+    setAnchorEl(null);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -57,6 +75,8 @@ const UserMenu = () => {
         {/* <MenuItem onClick={showDashboard}>Dashoard</MenuItem> */}
         <MenuItem onClick={handleUserInfoUpdate}>Update User Info</MenuItem>
         <MenuItem onClick={handleUpdatePassword}>Update Password</MenuItem>
+        <MenuItem onClick={handleDeposit}>Deposit</MenuItem>
+        <MenuItem onClick={handleWithdraw}>Withdraw</MenuItem>
       </Menu>
     </div>
   );
