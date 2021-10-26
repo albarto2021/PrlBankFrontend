@@ -23,6 +23,7 @@ import Logout from "./components/logout/Logout";
 import Deposit from "./components/transaction/Deposit";
 import Withdraw from "./components/transaction/Withdraw";
 import Transactions from "./components/transaction/Transatcions";
+import DisplayDashboard from "./components/shared/DisplayDashboard";
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
         <Route path="/deposit" component={Deposit} />
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/transactions" component={Transactions} />
+        <Route path="/displaydashboard" component={DisplayDashboard} />
         <Route path="/" component={HomePage} />
       </Switch>
       <Footer />

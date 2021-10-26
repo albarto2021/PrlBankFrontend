@@ -104,7 +104,7 @@ const LoginForm = (props) => {
 const Login = () => {
   const history = useHistory();
   const [{ userInfo }, dispatch] = useStateValue();
-
+  localStorage.clear();
   return (
     <div>
       <Formik
@@ -119,7 +119,7 @@ const Login = () => {
             .required("password Required"),
         })}
         onSubmit={(values, actions) => {
-          localStorage.clear();
+          //localStorage.clear();
           service.login(values).then((res) => {
             if (res.status === 200) {
               toast.success("Login Successful", {
@@ -129,6 +129,10 @@ const Login = () => {
               localStorage.setItem(
                 "auth",
                 JSON.stringify({ token: userInfo.jwt })
+              );
+              sessionStorage.setItem(
+                "userDAO",
+                JSON.stringify({ userDAO: userInfo.userDAO })
               );
 
               dispatch({
@@ -148,7 +152,7 @@ const Login = () => {
               //   history.push("/");
               // }
               actions.setSubmitting(false);
-              history.push("/");
+              history.push("/displaydashboard");
             } else {
               actions.resetForm();
               actions.setSubmitting(false);

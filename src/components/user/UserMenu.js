@@ -22,10 +22,10 @@ const UserMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  //   const showDashboard = () => {
-  //     history.push("/user");
-  //     setAnchorEl(null);
-  //   };
+  const showDashboard = () => {
+    history.push("/displaydashboard");
+    setAnchorEl(null);
+  };
 
   const handleUserInfoUpdate = () => {
     history.push("/updateUserInfo/" + id1);
@@ -70,7 +70,6 @@ const UserMenu = () => {
     }
   };
 
-
   return (
     <div class="mx-auto">
       <Button
@@ -89,7 +88,7 @@ const UserMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* <MenuItem onClick={showDashboard}>Dashoard</MenuItem> */}
+        <MenuItem onClick={showDashboard}>Dashoard</MenuItem>
         <MenuItem onClick={handleUserInfoUpdate}>Update User Info</MenuItem>
         <MenuItem onClick={handleUpdatePassword}>Update Password</MenuItem>
         <MenuItem onClick={handleDeposit}>Deposit</MenuItem>

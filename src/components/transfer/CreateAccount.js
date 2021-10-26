@@ -47,7 +47,7 @@ const CreateAccountForm = (props) => (
           <Col>
             <Field
               className="col-8 "
-              component={TextField}
+              component={FormikTextField}
               name="description"
               type="text"
               label="Description"
@@ -57,7 +57,7 @@ const CreateAccountForm = (props) => (
           <Col className=" col-12 p-3">
             <Field
               className="col-8"
-              component={TextField}
+              component={FormikTextField}
               name="accountBalance"
               type="number"
               label="Balance"
@@ -118,7 +118,7 @@ const CreateAccountForm = (props) => (
           <Col className=" col-12 p-3">
             <Field
               className="col-8"
-              component={TextField}
+              component={FormikTextField}
               name="createDate"
               type="date"
               InputLabelProps={{ shrink: true }}
@@ -129,7 +129,7 @@ const CreateAccountForm = (props) => (
           <Col className=" col-12 p-3 ">
             <Field
               className="col-8"
-              component={TextField}
+              component={FormikTextField}
               name="closedDate"
               type="date"
               InputLabelProps={{ shrink: true }}
@@ -140,7 +140,7 @@ const CreateAccountForm = (props) => (
           <Col className=" col-12 p-3">
             <Field
               className="col-8"
-              component={TextField}
+              component={FormikTextField}
               name="Employee"
               type="text"
               label="Employee"

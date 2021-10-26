@@ -12,6 +12,7 @@ const Logout = () => {
 
   const handleYes = () => {
     localStorage.clear();
+    sessionStorage.clear();
     dispatch({
       type: "LOGOUT",
       item: null,

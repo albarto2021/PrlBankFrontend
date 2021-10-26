@@ -19,10 +19,10 @@ const AdminMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  //   const showDashboard = () => {
-  //     history.push("/user");
-  //     setAnchorEl(null);
-  //   };
+  const showDashboard = () => {
+    history.push("/displaydashboard");
+    setAnchorEl(null);
+  };
 
   const handleManageUsers = () => {
     history.push("/admin/allusers");
@@ -54,12 +54,11 @@ const AdminMenu = () => {
     }
   };
 
-
   const handleClose = () => {
     setAnchorEl(null);
   };
   return (
-    <div class="mx-auto" >
+    <div class="mx-auto">
       <Button
         aria-controls="user-menu"
         aria-haspopup="true"
@@ -76,13 +75,15 @@ const AdminMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* <MenuItem onClick={showDashboard}>Dashoard</MenuItem> */}
+        <MenuItem onClick={showDashboard}>Dashoard</MenuItem>
         <MenuItem onClick={handleManageUsers}>Manage Users</MenuItem>
         <MenuItem onClick={handleCreateAccount}>Create Account</MenuItem>
         <MenuItem onClick={handleCustomerTransfer}>Money Transfer</MenuItem>
         <MenuItem onClick={handleDisplayAccounts}>Display Accounts</MenuItem>
         {/* <MenuItem onClick={handleUpdatePassword}>Update Password</MenuItem> */}
-        <MenuItem onClick={handleDisplayTransactions}>Display Transactions</MenuItem>
+        <MenuItem onClick={handleDisplayTransactions}>
+          Display Transactions
+        </MenuItem>
       </Menu>
     </div>
   );
