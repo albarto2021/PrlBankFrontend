@@ -121,7 +121,7 @@ const Deposit = () => {
             onSubmit={(values, actions) => {
               if (values.accountDescriptions === 0) {
                 toast.error("Please choose an account");
-                actions.setSubmitting(true);
+                actions.setSubmitting(false);
               } else {
                 service
                   .deposit(values)

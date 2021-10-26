@@ -47,13 +47,30 @@ const UserMenu = () => {
   };
 
   const handleWithdraw = () => {
-    history.push("/updatePassword/" + id1);
-    setAnchorEl(null);
+    if (userInfo.userDAO.accounts.length == 0) {
+      toast.warning("You need to have an account first");
+      setAnchorEl(null);
+    } else {
+      history.push("/withdraw");
+      setAnchorEl(null);
+    }
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleTransactions = () => {
+    if (userInfo.userDAO.accounts.length == 0) {
+      toast.warning("You need to have an account first");
+      setAnchorEl(null);
+    } else {
+      history.push("/transactions");
+      setAnchorEl(null);
+    }
+  };
+
+
   return (
     <div class="mx-auto">
       <Button
@@ -77,6 +94,7 @@ const UserMenu = () => {
         <MenuItem onClick={handleUpdatePassword}>Update Password</MenuItem>
         <MenuItem onClick={handleDeposit}>Deposit</MenuItem>
         <MenuItem onClick={handleWithdraw}>Withdraw</MenuItem>
+        <MenuItem onClick={handleTransactions}>Transactions</MenuItem>
       </Menu>
     </div>
   );

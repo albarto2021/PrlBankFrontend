@@ -66,15 +66,14 @@ const DisplayAccounts = (props) => {
 
   return (
     <div>
-      
       <Container>
-      <input
-        type="text"
-        placeholder="Search"
-        onChange={(e) => {
-          setSearchItem(e.target.value);
-        }}
-      />
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => {
+            setSearchItem(e.target.value);
+          }}
+        />
         <TableContainer>
           <TableHead>
             <TableRow>

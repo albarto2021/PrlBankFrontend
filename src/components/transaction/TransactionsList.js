@@ -1,4 +1,15 @@
-import React, { useState } from "react";
+// { id: 1, label: "Transaction id", winWidth: 200 },
+// { id: 2, label: "Type", winWidth: 200 },
+// { id: 3, label: "Amount", winWidth: 200 },
+// { id: 4, label: "Date", winWidth: 200 },
+// { id: 5, label: "Time", winWidth: 200 },
+// { id: 6, label: "New Balance", winWidth: 200 },
+// { id: 7, label: "Account id", winWidth: 200 },
+// { id: 8, label: "User id", winWidth: 200 },
+// { id: 9, label: "Edit", winWidth: 200 },
+// { id: 10, label: "Delete", winWidth: 200 },
+
+import React, { useState, useEffect } from "react";
 //import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,45 +26,54 @@ import { Button } from "@material-ui/core";
 import service from "../../service/BankService";
 import { toast } from "react-toastify";
 import { Redirect, useHistory } from "react-router";
-import SearchBar, { resultSet } from "../shared/SearchBar";
+import allAccountsToPass from "../admin/SingleUserDetails";
+import UserInfo from "../user/UserInfo";
 
-export let rows; // export added
+let rows = [];
 const columns = [
-  { id: 1, label: "First Name", winWidth: 200 },
-  { id: 2, label: "Last Name", winWidth: 200 },
-  { id: 3, label: "Role", winWidth: 200 },
-  { id: 4, label: "Edit", winWidth: 200 },
-  { id: 5, label: "Delete", winWidth: 200 },
+    { id: 1, label: "Transaction id", winWidth: 200 },
+    { id: 2, label: "Type", winWidth: 200 },
+    { id: 3, label: "Description", winWidth: 200 },
+    { id: 4, label: "Date", winWidth: 200 },
+    { id: 5, label: "Amount", winWidth: 200 },
+    { id: 6, label: "New Balance", winWidth: 200 },
+    { id: 7, label: "Account id", winWidth: 200 },
+    { id: 8, label: "User id", winWidth: 200 },
+    { id: 9, label: "Edit", winWidth: 200 },
+    { id: 10, label: "Delete", winWidth: 200 },
 ];
 
 ///export let idToPass;
-export let currentUser;
+ export let currentTransaction;
 
-const UsersDetails = (props) => {
-  const [{ userInfo }] = useStateValue();
-  //rows = props.users;
-  rows = props.users;
-  const [searchItem, setSearchItem] = useState("");
+const TransactionsList = (props) => {
+  const [{userInfo}]=useStateValue();
+  if(userInfo.userDAO.isAdmin || userInfo.userDAO.isEmployee){
+    rows = props.transactions;
+  } else {
+    rows= props.transactions.filter((val)=> val.userId==userInfo.userDAO.userId)
+  }
+
+  // rows=props.transactions;
+  
+  console.log(rows);
   const history = useHistory();
-  //const [chosenUser, setChosenUser] = useState('');
-  // const deleteUser=()=>{
-  //     history.push("/admin/allusers")
-  // };
+  const [searchItem, setSearchItem] = useState("");
 
-  const handleEdit = (userId, row) => {
+  const handleEdit = (transactionId, row) => {
     //idToPass = userId;
-    currentUser = row;
-    history.push("/admin/edituser");
+    currentTransaction = row;
+    history.push("/edittransaction");
   };
 
-  const handleDelete = (userId) => {
-    service.deleteUser(userId).then((res) => {
+  const handleDelete = (transactionId) => {
+    service.deleteTransaction(transactionId).then((res) => {
       if (res.status == 200) {
-        toast.success("User Successfuly deleted", {
+        toast.success("Account Successfuly deleted", {
           position: toast.POSITION.TOP_CENTER,
         });
         // localStorage.setItem("refresh",localStorage.getItem("refresh")+1);
-        history.push("/admin/deletedUser");
+        history.push("/deletedTransaction");
         // history.push("/admin/allusers")
         // deleteUser();
       } else {
@@ -68,7 +88,6 @@ const UsersDetails = (props) => {
     <div>
       <Container>
         <input
-          className=" d-flex justify-content-center"
           type="text"
           placeholder="Search"
           onChange={(e) => {
@@ -96,7 +115,7 @@ const UsersDetails = (props) => {
                 } else  */
                 }
                 if (
-                  val.firstName
+                  val.description
                     .toLowerCase()
                     .includes(searchItem.toLocaleLowerCase())
                 ) {
@@ -105,21 +124,20 @@ const UsersDetails = (props) => {
               })
               .map((row) => {
                 return (
-                  <TableRow key={row.userId}>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>
-                      {row.isAdmin
-                        ? "Admin"
-                        : row.isEmployee
-                        ? "Employee"
-                        : "User"}
-                    </TableCell>
+                  <TableRow key={row.id}>
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.type}</TableCell>
+                    <TableCell>{row.description}</TableCell>
+                    <TableCell>{row.date}</TableCell>
+                    <TableCell>{row.amount}</TableCell>
+                    <TableCell>{row.availableBalance}</TableCell>
+                    <TableCell>{row.accountId}</TableCell>
+                    <TableCell>{row.userId}</TableCell>
 
                     <TableCell>
                       <Button
                         onClick={() => {
-                          handleEdit(row.userId, row);
+                          handleEdit(row.id, row);
                         }}
                       >
                         Edit
@@ -129,7 +147,7 @@ const UsersDetails = (props) => {
                     <TableCell>
                       <Button
                         onClick={() => {
-                          handleDelete(row.userId);
+                          handleDelete(row.id);
                         }}
                       >
                         Delete
@@ -145,4 +163,4 @@ const UsersDetails = (props) => {
   );
 };
 
-export default UsersDetails;
+export default TransactionsList;

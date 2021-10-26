@@ -32,6 +32,10 @@ class BankService {
     );
   }
 
+  getAllTransactions() {
+    return axiosInstance.get(BASE_URL + "/accounts/transactions");
+  }
+
   getAllUsers() {
     return axiosInstance.get(BASE_URL + "/admin/allusers");
   }
@@ -67,6 +71,13 @@ class BankService {
   deposit(transactionInfo) {
     return axiosInstance.post(BASE_URL + "/accounts/deposit", transactionInfo);
   }
+
+  withdraw(transactionInfo) {
+    return axiosInstance.post(BASE_URL + "/accounts/withdraw", transactionInfo);
+  }
+
+
+
 }
 
 export default new BankService();

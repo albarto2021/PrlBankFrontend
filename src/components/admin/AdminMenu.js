@@ -5,6 +5,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
 import { useStateValue } from "../../StateProvider";
+import { toast } from "react-toastify";
 
 const AdminMenu = () => {
   const history = useHistory();
@@ -43,6 +44,17 @@ const AdminMenu = () => {
     history.push("/displayaccounts");
     setAnchorEl(null);
   };
+  const handleDisplayTransactions = () => {
+    if (userInfo.userDAO.accounts.length == 0) {
+      toast.warning("You need to have an account first");
+      setAnchorEl(null);
+    } else {
+      history.push("/transactions");
+      setAnchorEl(null);
+    }
+  };
+
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -70,6 +82,7 @@ const AdminMenu = () => {
         <MenuItem onClick={handleCustomerTransfer}>Money Transfer</MenuItem>
         <MenuItem onClick={handleDisplayAccounts}>Display Accounts</MenuItem>
         {/* <MenuItem onClick={handleUpdatePassword}>Update Password</MenuItem> */}
+        <MenuItem onClick={handleDisplayTransactions}>Display Transactions</MenuItem>
       </Menu>
     </div>
   );

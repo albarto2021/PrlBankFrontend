@@ -21,6 +21,8 @@ import DisplayAllAccounts from "./components/employee/DisplayAllAccounts";
 import EditAccount from "./components/employee/EditAccount";
 import Logout from "./components/logout/Logout";
 import Deposit from "./components/transaction/Deposit";
+import Withdraw from "./components/transaction/Withdraw";
+import Transactions from "./components/transaction/Transatcions";
 
 const App = () => {
   return (
@@ -46,6 +48,8 @@ const App = () => {
         <Route path="/createAccount" component={CreateAccountPage} />
         <Route path="/moneyTransfer" component={CustomerTransferPage} />
         <Route path="/deposit" component={Deposit} />
+        <Route path="/withdraw" component={Withdraw} />
+        <Route path="/transactions" component={Transactions} />
         <Route path="/" component={HomePage} />
       </Switch>
       <Footer />
