@@ -75,9 +75,6 @@ class BankService {
   withdraw(transactionInfo) {
     return axiosInstance.post(BASE_URL + "/accounts/withdraw", transactionInfo);
   }
-
-
-
 }
 
 export default new BankService();
