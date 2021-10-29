@@ -30,9 +30,20 @@ const columns = [
 export let currentUser;
 
 const UsersDetails = (props) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const [{ userInfo }] = useStateValue();
   //rows = props.users;
   rows = props.users;
+  console.log(rows);
   const [searchItem, setSearchItem] = useState("");
   const history = useHistory();
   //const [chosenUser, setChosenUser] = useState('');
@@ -76,6 +87,7 @@ const UsersDetails = (props) => {
           }}
         />
         <TableContainer>
+        <Table>
           <TableHead>
             <TableRow>
               {columns.map(({ id, label, minWidth }) => {
@@ -102,7 +114,7 @@ const UsersDetails = (props) => {
                 ) {
                   return val;
                 }
-              })
+              }).slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow key={row.userId}>
@@ -139,7 +151,17 @@ const UsersDetails = (props) => {
                 );
               })}
           </TableBody>
+          </Table>
         </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </Container>
     </div>
   );

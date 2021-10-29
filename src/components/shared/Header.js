@@ -8,7 +8,7 @@ import AdminMenu from "../admin/AdminMenu";
 import EmployeeMenu from "../employee/EmployeeMenu";
 import Logout from "../logout/Logout";
 import { Button } from "@material-ui/core";
-import zIndex from "@material-ui/core/styles/zIndex";
+
 
 const Header = () => {
   const [{ userInfo }, dispatch] = useStateValue();
@@ -56,7 +56,7 @@ const Header = () => {
                    */}
                   <div>
                     <Link to="/register">Register</Link> &nbsp; | &nbsp;
-                    <span className="header__lineOne">Hello </span>
+                    {/* <span className="header__lineOne">Hello </span> */}
                     <Link to="/login">Signin</Link>
                   </div>{" "}
                   {/* <Link to="/register">Register</Link> &nbsp; | &nbsp;

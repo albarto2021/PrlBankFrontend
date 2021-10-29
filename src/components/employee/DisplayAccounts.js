@@ -17,6 +17,8 @@ import { toast } from "react-toastify";
 import { Redirect, useHistory } from "react-router";
 import allAccountsToPass from "../admin/SingleUserDetails";
 
+
+// pagination eklenecek
 let rows = [];
 const columns = [
   { id: 1, label: "Account id", winWidth: 200 },
@@ -35,6 +37,18 @@ const columns = [
 export let currentAccount;
 
 const DisplayAccounts = (props) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+
+
+  const handleChangePage=(event,newPage)=>{
+    setPage(newPage);
+  }
+  const handleChangeRowsPerPage=(event)=>{
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  }
+
   rows = props.allAccounts;
   console.log(rows);
   const history = useHistory();
@@ -75,6 +89,7 @@ const DisplayAccounts = (props) => {
           }}
         />
         <TableContainer>
+        <Table>
           <TableHead>
             <TableRow>
               {columns.map(({ id, label, minWidth }) => {
@@ -101,7 +116,7 @@ const DisplayAccounts = (props) => {
                 ) {
                   return val;
                 }
-              })
+              }).slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow key={row.id}>
@@ -137,6 +152,17 @@ const DisplayAccounts = (props) => {
                 );
               })}
           </TableBody>
+          </Table>
+          <TablePagination
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+          page={page}
+          rowsPerPageOptions={[10,25,100]}
+
+          />
         </TableContainer>
       </Container>
     </div>

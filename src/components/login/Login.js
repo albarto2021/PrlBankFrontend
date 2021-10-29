@@ -104,7 +104,7 @@ const LoginForm = (props) => {
 const Login = () => {
   const history = useHistory();
   const [{ userInfo }, dispatch] = useStateValue();
-  localStorage.clear();
+  // localStorage.clear();
   return (
     <div>
       <Formik
@@ -119,7 +119,7 @@ const Login = () => {
             .required("password Required"),
         })}
         onSubmit={(values, actions) => {
-          //localStorage.clear();
+          localStorage.clear();
           service.login(values).then((res) => {
             if (res.status === 200) {
               toast.success("Login Successful", {

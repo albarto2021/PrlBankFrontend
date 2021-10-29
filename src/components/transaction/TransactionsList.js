@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 //import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Table, Paper} from '@material-ui/core'
+// import Table from "@material-ui/core/Table";
+// import TableBody from "@material-ui/core/TableBody";
+// import TableCell from "@material-ui/core/TableCell";
+// import TableContainer from "@material-ui/core/TableContainer";
+// import TableHead from "@material-ui/core/TableHead";
+// import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
-import Paper from "@material-ui/core/Paper";
+// import Paper from "@material-ui/core/Paper";
 import { useStateValue } from "../../StateProvider";
 import { Container } from "react-bootstrap";
 import { Button } from "@material-ui/core";
@@ -18,6 +19,8 @@ import { Redirect, useHistory } from "react-router";
 import allAccountsToPass from "../admin/SingleUserDetails";
 import UserInfo from "../user/UserInfo";
 
+
+// pagination eklenecek
 let rows = [];
 const columns = [
   { id: 1, label: "Transaction id", winWidth: 200 },
@@ -33,6 +36,18 @@ const columns = [
 export let currentTransaction;
 
 const TransactionsList = (props) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
+
+  const handleChangePage=(event, newPage)=>{
+    setPage(newPage);
+  }
+
+  const handleChangeRowsPerPage =(event) =>{
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  }
+
   const [{ userInfo }] = useStateValue();
   if (userInfo.userDAO.isAdmin || userInfo.userDAO.isEmployee) {
     rows = props.transactions;
@@ -48,7 +63,7 @@ const TransactionsList = (props) => {
 
   return (
     <div>
-      <Container>
+      <Paper>
         <input
           type="text"
           placeholder="Search"
@@ -57,6 +72,7 @@ const TransactionsList = (props) => {
           }}
         />
         <TableContainer>
+          <Table>
           <TableHead>
             <TableRow>
               {columns.map(({ id, label, minWidth }) => {
@@ -83,7 +99,7 @@ const TransactionsList = (props) => {
                 ) {
                   return val;
                 }
-              })
+              }).slice(page*rowsPerPage,page*rowsPerPage+rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow key={row.id}>
@@ -99,8 +115,18 @@ const TransactionsList = (props) => {
                 );
               })}
           </TableBody>
+          </Table>
         </TableContainer>
-      </Container>
+        <TablePagination 
+                component="div"
+                count={rows.length}
+                page={page}
+                onChangePage={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10,25,100]}
+            />
+      </Paper>
     </div>
   );
 };
