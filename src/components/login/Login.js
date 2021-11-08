@@ -31,24 +31,19 @@ const LoginForm = (props) => {
   const history = useHistory();
   return (
     <Container className=" d-flex justify-content-center">
-      <fieldset>
+      <fieldset className="m-1 p-2">
         <legend className="text-center p-3">Login</legend>
         <Form>
-          <Row className="justify-content-center">
-            <Col xs={6} md={4} className="text-center p-3">
+          <Row className="d-flex justify-content-center align-items-center">
+            <Col className="text-center  col-12 col-md-6">
               <label htmlFor="ssn">SSN:</label>
-              {/* <Field 
-          className="ms-4"
-          component={TextField}
-          name="ssn"
-          type="text"
-          /> */}
               <Field
                 name="ssn"
                 label="SSN"
                 render={({ field }) => (
                   <MaskedInput
                     {...field}
+                    className=""
                     mask={ssnNumberMask}
                     id="ssn"
                     placeholder="000-00-0000"
@@ -58,10 +53,10 @@ const LoginForm = (props) => {
               />
             </Col>
 
-            <Col xs={6} md={4} className="text-center p-3">
+            <Col className="text-center p-3 col-12 col-md-6">
               <label htmlFor="password">Password:</label>
               <Field
-                className="ms-4"
+                className="ms-4 "
                 component={TextField}
                 name="password"
                 type="password"
@@ -83,6 +78,7 @@ const LoginForm = (props) => {
 
             <Col className="d-flex justify-content-center p-3">
               <Button
+                className="bg-success"
                 type="submit"
                 onClick={props.submitForm}
                 disabled={props.isSubmitting}
@@ -132,7 +128,9 @@ const Login = () => {
               );
               sessionStorage.setItem(
                 "userDAO",
-                JSON.stringify({ userDAO: userInfo.userDAO })
+                JSON.stringify({
+                  userDAO: userInfo.userDAO,
+                })
               );
 
               dispatch({

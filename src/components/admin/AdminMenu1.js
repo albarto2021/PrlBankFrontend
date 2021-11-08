@@ -58,11 +58,11 @@ const AdminMenu = () => {
 		setAnchorEl(null);
 	};
 	return (
-		<div class="mx-auto ">
+		<div class="mx-auto">
 			<Button
 				aria-controls="user-menu"
 				aria-haspopup="true"
-				className="menu text-white h6 font-weight-bold"
+				className="menu"
 				onClick={handleOnClick}
 			>
 				{/* <MenuIcon className="menu" /> */}
